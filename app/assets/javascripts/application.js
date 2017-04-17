@@ -15,3 +15,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// Código recomendado pela documentação para funcionar junto com o Turbolinks.
+// Precisamos? Provavelmente sim
+document.addEventListener('turbolinks:load', function() {
+  componentHandler.upgradeDom();
+});
