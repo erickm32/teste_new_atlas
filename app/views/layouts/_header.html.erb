@@ -1,0 +1,17 @@
+<header class="mdl-layout__header">
+  <div class="mdl-layout__header-row">
+    <!-- Title -->
+    <span class="mdl-layout-title">
+      <%= render "layouts/breadcrumb" %>
+    </span>
+    <!-- Add spacer, to align navigation to the right -->
+    <div class="mdl-layout-spacer"></div>
+    <!-- Navigation. We hide it in small screens. -->
+    <nav class="mdl-navigation mdl-layout--large-screen-only">
+      <%= link_to "Criar conta", new_user_registration_path, class: "mdl-navigation__link"%>
+      <%= link_to "Deslogar", destroy_user_session_path, method: :delete, class: "mdl-navigation__link"%>
+      <a class="mdl-navigation__link" href="">Link</a>
+      <a class="mdl-navigation__link" href="">Link</a>
+    </nav>
+  </div>
+</header>

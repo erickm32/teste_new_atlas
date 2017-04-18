@@ -9,6 +9,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <%= render "layouts/header" %>
+      <%= render "layouts/drawer" %>
+      <%= render "layouts/start_main_content" %>
+        <!-- Your content goes here -->
+        <%= yield %>
+      <%= render "layouts/finish_main_content" %>
+    </div>
   </body>
 </html>

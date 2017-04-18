@@ -1,1 +1,10 @@
+$color-primary:       139,195,74 !default;
+$color-primary-dark:  104,159,56 !default;
+$color-accent:        255,152,0 !default;
+
+//$text-color-primary: unquote("rgba(#{$color-black}, 0.87)") !default;
+//$text-link-color: unquote("rgb(#{$color-accent})") !default;
+$text-color-primary: 33,33,33 !default;
+$text-link-color: 117,117,117 !default;
+
 @import 'material';

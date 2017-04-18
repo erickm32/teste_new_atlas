@@ -35,6 +35,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# devise for authentication
+gem 'devise'
+# mdl components 
 gem 'material_design_lite-sass', '~> 1.3'
 
 
