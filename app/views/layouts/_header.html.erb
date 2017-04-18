@@ -8,10 +8,12 @@
     <div class="mdl-layout-spacer"></div>
     <!-- Navigation. We hide it in small screens. -->
     <nav class="mdl-navigation mdl-layout--large-screen-only">
-      <%= link_to "Criar conta", new_user_registration_path, class: "mdl-navigation__link"%>
-      <%= link_to "Deslogar", destroy_user_session_path, method: :delete, class: "mdl-navigation__link"%>
-      <a class="mdl-navigation__link" href="">Link</a>
-      <a class="mdl-navigation__link" href="">Link</a>
+      <% if current_user %>
+        <%= link_to "Deslogar", destroy_user_session_path, method: :delete, class: "mdl-navigation__link"%>
+      <% else %>
+        <%= link_to "Criar conta", new_user_registration_path, class: "mdl-navigation__link"%>
+        <%= link_to "Logar", new_user_session_path, class: "mdl-navigation__link" %>
+      <% end %>
     </nav>
   </div>
 </header>

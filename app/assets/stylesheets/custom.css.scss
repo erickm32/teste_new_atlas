@@ -4,4 +4,8 @@ $color-primary-dark:  104,159,56 !default;
 $color-accent:        255,152,0 !default;
 $text-color-primary: 33,33,33 !default;
 
+body {
+  background-color: #f9f9f9;
+}
+
 @import 'material';
