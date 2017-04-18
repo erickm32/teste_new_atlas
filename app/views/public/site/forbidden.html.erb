@@ -1,0 +1,22 @@
+<paper-material elevation="1" style='padding: 1px 10px;margin: 10px 15px 10px 25px;' class='fit'>
+	<div class='horizontal layout start fit'  style='align-items: center;' >
+		<div class='flex' style='text-align: center;'>
+			<img width="250" height="250" src="/assets/system/denied.png" style="margin:20px">
+		</div>
+		<div class='flex-2' style='text-align: left;'>
+			<h1 style="margin-top:40px"><%=t"forbidden_your_dont_have_access"%></h1>
+			<p style="font-family:Roboto">
+				<%=t"forbidden_contact_admi"%>
+			</p>
+			<h2 style="margin-top:40px"><%=t"forbidden_why_access_was"%></h2>
+			<p style="font-family:Roboto">
+				<%=t"forbidden_why_access_was_info"%>
+			</p>
+			<p class='layout horizontal center' style="margin: 60px 20px 20px 0px">
+				<paper-button raised onclick="try{ga('send', 'event', 'atHome', 'forbiddenBackDashboard')}catch(exception){};location.href='/'" class='system_color'>
+					<iron-icon icon="arrow-back"></iron-icon><%=t"forbidden_back_to_dashboard"%>
+				</paper-button>
+			</p>
+		</div>
+	</div>
+</paper-material>

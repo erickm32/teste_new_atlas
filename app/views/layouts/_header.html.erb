@@ -7,8 +7,41 @@
     <!-- Add spacer, to align navigation to the right -->
     <div class="mdl-layout-spacer"></div>
     <!-- Navigation. We hide it in small screens. -->
+    <!-- large-screen-only -->
     <nav class="mdl-navigation mdl-layout--large-screen-only">
       <% if current_user %>
+        <%= link_to "#{current_user.email}", edit_user_registration_path(current_user), class: "mdl-navigation__link"%>
+      <% else %>
+        <%= link_to "Criar conta", new_user_registration_path, class: "mdl-navigation__link"%>
+        <%= link_to "Logar", new_user_session_path, class: "mdl-navigation__link" %>
+      <% end %>
+
+
+      <!-- Right aligned menu below button -->
+      <button id="demo-menu-lower-right"
+              class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons">keyboard_arrow_down</i>
+      </button>
+
+      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+          for="demo-menu-lower-right">
+        <li><%= link_to "Deslogar", destroy_user_session_path, method: :delete, class: "mdl-menu__item"%></li>
+        <li class="mdl-menu__item">Some Action</li>
+        <li class="mdl-menu__item">Another Action</li>
+        <li disabled class="mdl-menu__item">Disabled Action</li>
+      </ul>
+
+
+    </nav>
+    <!-- small-screen-only -->
+    <nav class="mdl-navigation mdl-layout--small-screen-only">
+      <% if current_user %>
+        <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" >
+          <i class="material-icons">mood</i>
+          <a href="https://www.google.com"></a>
+        </button>
+
+        <%= link_to "mood", destroy_user_session_path, method: :delete, class: "material-icons mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"%>
         <%= link_to "Deslogar", destroy_user_session_path, method: :delete, class: "mdl-navigation__link"%>
       <% else %>
         <%= link_to "Criar conta", new_user_registration_path, class: "mdl-navigation__link"%>
