@@ -3,9 +3,14 @@ $color-primary:       139,195,74 !default;
 $color-primary-dark:  104,159,56 !default;
 $color-accent:        255,152,0 !default;
 $text-color-primary: 33,33,33 !default;
+@import 'material';
 
 body {
   background-color: #f9f9f9;
 }
 
-@import 'material';
+.paper-material.mdl-card {
+  width: 80%;
+  height: 80%;
+  margin: 5%;
+}

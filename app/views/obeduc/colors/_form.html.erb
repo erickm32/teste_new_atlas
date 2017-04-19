@@ -1,0 +1,27 @@
+<%= form_for(obeduc_color) do |f| %>
+  <% if obeduc_color.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(obeduc_color.errors.count, "error") %> prohibited this obeduc_color from being saved:</h2>
+
+      <ul>
+      <% obeduc_color.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :hex_color %>
+    <%= f.text_field :hex_color %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tag %>
+    <%= f.text_field :tag %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

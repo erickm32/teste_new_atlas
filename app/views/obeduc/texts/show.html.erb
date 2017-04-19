@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Codigo texto:</strong>
+  <%= @obeduc_text.codigo_texto %>
+</p>
+
+<p>
+  <strong>Texto full:</strong>
+  <%= @obeduc_text.texto_full %>
+</p>
+
+<%= link_to 'Edit', edit_obeduc_text_path(@obeduc_text) %> |
+<%= link_to 'Back', obeduc_texts_path %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Obeduc Colors</h1>
+
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th>Hex color</th>
+      <th class="mdl-data-table__cell--non-numeric">Tag</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @obeduc_colors.each do |obeduc_color| %>
+      <tr>
+        <td><%= obeduc_color.hex_color %></td>
+        <td class="mdl-data-table__cell--non-numeric"><%= obeduc_color.tag %></td>
+        <td><%= link_to 'Show', obeduc_color %></td>
+        <td><%= link_to 'Edit', edit_obeduc_color_path(obeduc_color) %></td>
+        <td><%= link_to 'Destroy', obeduc_color, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Obeduc Color', new_obeduc_color_path %>

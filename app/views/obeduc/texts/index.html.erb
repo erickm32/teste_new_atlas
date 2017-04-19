@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Obeduc Texts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Codigo texto</th>
+      <th>Texto full</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @obeduc_texts.each do |obeduc_text| %>
+      <tr>
+        <td><%= obeduc_text.codigo_texto %></td>
+        <td><%= obeduc_text.texto_full %></td>
+        <td><%= link_to 'Show', obeduc_text %></td>
+        <td><%= link_to 'Edit', edit_obeduc_text_path(obeduc_text) %></td>
+        <td><%= link_to 'Destroy', obeduc_text, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Obeduc Text', new_obeduc_text_path %>

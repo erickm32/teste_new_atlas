@@ -1,0 +1,2 @@
+module Obeduc::ColorsHelper
+end

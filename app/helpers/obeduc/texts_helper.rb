@@ -1,0 +1,2 @@
+module Obeduc::TextsHelper
+end

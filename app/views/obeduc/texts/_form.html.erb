@@ -1,0 +1,102 @@
+<%= form_for(obeduc_text) do |f| %>
+  <% if obeduc_text.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(obeduc_text.errors.count, "error") %> prohibited this obeduc_text from being saved:</h2>
+
+      <ul>
+      <% obeduc_text.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="paper-material mdl-card mdl-shadow--2dp">
+    <div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label ">
+        <%= f.label :codigo_texto, class: "mdl-textfield__label", for: "input_nome_da_crianca" %>
+        <%= f.text_field :codigo_texto, class: "mdl-textfield__input", id: "input_nome_da_crianca" %>
+      </div>
+    </div>
+
+    <div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <%= f.label :texto_full, class: "mdl-textfield__label", for: "input_texto_original" %>
+        <%= f.text_area :texto_full, class: "mdl-textfield__input", rows: "2", id: "input_texto_original" %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.submit "texto no botão", class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"%>
+    </div>
+  </div>
+
+  <!-- Textfield with Floating Label -->
+  <div class="paper-material mdl-card mdl-shadow--2dp">
+    <form action="#">
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="input_nome_da_crianca">
+        <label class="mdl-textfield__label" for="input_nome_da_crianca">Nome da Criança</label>
+      </div>
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" type="text" id="input_escola">
+        <label class="mdl-textfield__label" for="input_escola">Escola</label>
+      </div>
+
+      <!-- Floating Multiline Textfield -->
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <textarea class="mdl-textfield__input" type="text" rows= "2" id="input_texto_original" ></textarea>
+        <label class="mdl-textfield__label" for="input_texto_original">Texto Original</label>
+      </div>
+
+      <div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_idade">
+          <label class="mdl-textfield__label" for="input_idade">Idade</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_sexo">
+          <label class="mdl-textfield__label" for="input_sexo">Sexo</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_numero_estrato">
+          <label class="mdl-textfield__label" for="input_numero_estrato">Número do Estrato</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_numero_coleta">
+          <label class="mdl-textfield__label" for="input_numero_coleta">Número da Coleta</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_numero_texto">
+          <label class="mdl-textfield__label" for="input_numero_texto">Número do Texto</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_ano_coleta">
+          <label class="mdl-textfield__label" for="input_ano_coleta">Ano da Coleta</label>
+        </div>
+      </div>
+
+
+
+      <div>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_tipo_do_texto">
+          <label class="mdl-textfield__label" for="input_tipo_do_texto">Tipo do Texto</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_serie">
+          <label class="mdl-textfield__label" for="input_serie">Série</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="input_turma">
+          <label class="mdl-textfield__label" for="input_turma">Turma</label>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+<% end %>

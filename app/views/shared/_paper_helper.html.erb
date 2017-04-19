@@ -1,0 +1,1557 @@
+<%
+
+	# Contrói o input via paper para o app
+  #
+  # === Parametros
+  #
+	# - label:: 			String 			com a label
+	# - f:: 					FormHelper 	do formulário
+	# - field_name::	String 			nome do campo
+	# - value:: 			String/Int 	com o valor do campo
+	# - icon::       	String 			opcional com o icone
+	# - type:: 				String 			Tipo {Password,text,number,submit}
+	#
+	def paper_input(label,f,field_name,valeu,icon="account-balance",type="text")
+		retorno = "<div class='horizontal layout end'>
+						    <div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+							  	<paper-tooltip>#{label}</paper-tooltip>
+						    </div>
+						    <div class='flex'>
+									<paper-input type='#{type}' label='#{label}' value='#{valeu}' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}[#{field_name}]'></paper-input>
+						    </div>
+						  </div>"
+		retorno.html_safe
+	end
+
+
+	# Contrói o input via paper para o app apenas exibir
+  #
+  # === Parametros
+  #
+	# - label:: 		String 			com a label
+	# - value:: 		String/Int 	com o valor do campo
+	# - icon::      String 			opcional com o icone
+	# - type::			String 			tipos de campo {text,number,password,submit}
+	#
+	def paper_input_show(label,valeu,icon="account-balance",type="text")
+		retorno = "<div class='horizontal layout end'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+						    <div class='flex'>
+						      <paper-input disabled label='#{label}' type='#{type}' value='#{valeu}'></paper-input>
+						    </div>
+						  </div>"
+		retorno.html_safe
+	end
+
+	# Contrói o input para telefones
+	#
+	# === Parametros
+	#
+	# - label:: 			String 			com a label
+	# - f:: 					FormHelper 	do formulário
+	# - field_name::	String 			nome do campo
+	# - value:: 			String/Int 	com o valor do campo
+	# - icon::       	String 			opcional com o icone
+	# - type:: 				String 			Tipo {Password,text,number,submit}
+	#
+	def paper_input_phone(label,f,field_name,valeu,icon="communication:phone",country_code=nil)
+    if country_code == nil
+      country_code = System::Config.first.country_code
+    end
+		retorno = "<div class='horizontal layout end'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+								<div class='flex'>
+									<gold-phone-input label='#{label}' country-code='#{country_code}' phone-number-pattern='XX-XXXX-XXXXX' value='#{valeu}' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}[#{field_name}]'></gold-phone-input>
+								</div>
+							</div>"
+		retorno.html_safe
+	end
+
+	# Contrói o input via paper para o app apenas exibir
+	# 	o telefone
+  #
+  # === Parametros
+  #
+	# - label:: 		String 			com a label
+	# - value:: 		String/Int 	com o valor do campo
+	# - icon::      String 			opcional com o icone
+	# - type::			String 			tipos de campo {text,number,password,submit}
+	#
+	def paper_input_phone_show(label,valeu,icon="account-balance",country_code="55")
+		retorno = "<div class='horizontal layout end'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+						    <div class='flex'>
+						      <gold-phone-input label='#{label}' country-code='#{country_code}' phone-number-pattern='XX-XXX-XXX-XX' value='#{valeu}' disabled></gold-phone-input>
+						    </div>
+						  </div>"
+		retorno.html_safe
+	end
+
+	# paper para texto longo
+  #
+  # === Parametros
+  #
+	# - label:: 			String 			com a label
+	# - f:: 					FormHelper 	do formulário
+	# - field_name::	String 			nome do campo
+	# - value:: 			String/Int 	com o valor do campo
+	# - icon::       	String 			opcional com o icone
+	# - type:: 				String 			Tipo {Password,text,number,submit}
+	#
+	def paper_textarea(label,f,field_name,valeu,icon="account-balance",type="text")
+		id = label
+		id = id.gsub(' ', '_')
+		retorno = "<div class='horizontal layout center'>
+						<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+							<iron-icon icon='#{icon}'></iron-icon>
+							<paper-tooltip>#{label}</paper-tooltip>
+						</div>
+				    <div class='flex' >
+							<paper-textarea id='paper_textarea_#{id}' label='#{label}' value='#{valeu}' type='#{type}' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}_#{field_name}'></paper-textarea>
+				    </div>
+				  </div>
+					<script>
+						document.addEventListener('WebComponentsReady', function(){
+							document.querySelector('#paper_textarea_#{id}').querySelector('textarea').id = '#{f.object_name}_#{field_name}';
+							document.querySelector('#paper_textarea_#{id}').querySelector('textarea').name = '#{f.object_name}[#{field_name}]';
+						})
+					</script>"
+		retorno.html_safe
+	end
+
+	# paper para texto longo para exibição
+  #
+  # === Parametros
+  #
+	# - label:: 		String 			com a label
+	# - value:: 		String/Int 	com o valor do campo
+	# - icon::      String 			opcional com o icone
+	# - type:: 			String 			Tipo {Password,text,number,submit}
+	#
+	def paper_textarea_show(label,valeu,icon="account-balance",type="text")
+		retorno = "<div class='horizontal layout center'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+						    <div class='flex'>
+						      <paper-textarea value='#{valeu}' label='#{label}' disabled  type='#{type}'></paper-textarea>
+						    </div>
+						  </div>"
+		retorno.html_safe
+	end
+
+	# Contrói um seleticondor de data para o app
+  #
+  # === Parametros
+  #
+	# - label:: 			String 			com o nome de descrição
+	# - f:: 					FormHelper 	do formulário
+	# - data::				DATE 				com a data
+	# - field:: 			String/Int 	com o valor do campo
+	# - field_name::	String 			nome do campo no formulário
+	# - icon::       	String 			opcional com o icone
+	# - disabled::		Boolean			opcional desabilita a manipulação
+	#
+	def paper_date_select(label,f,date,field,field_name,icon="today",disabled=nil,rangeYearBurn=nil)
+				if date == nil
+					date = Time.now
+				end
+				if rangeYearBurn
+					maxYear = Time.now.year
+					minYear = 1900
+
+				else
+					maxYear = Time.now.year + 5
+					minYear = Time.now.year - 5
+
+				end
+				lang_cancel = t "app_cancel"
+				lang_ok = t "app_ok"
+				retorno="
+				  <div class='horizontal layout end'>
+						<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+							<iron-icon icon='#{icon}'></iron-icon>
+							<paper-tooltip>#{label}</paper-tooltip>
+						</div>
+						<div class='flex'>
+							<paper-input label='#{label}' id='data_#{field_name}' value='#{date.day}/#{date.month}/#{date.year}' onclick=\"document.querySelector('#dialog_datapicker_#{field_name}').toggle()\" style='cursor:pointer;width: 140px;'></paper-input>
+					  </div>
+				  </div>
+					<paper-dialog id='dialog_datapicker_#{field_name}' modal class='paper-date-picker-dialog'>
+						<paper-date-picker minYear='#{minYear}' maxYear='#{maxYear}' locale='pt' id='datepicker_#{field_name}'></paper-date-picker>
+						<div class='buttons'>
+						<paper-button dialog-dismiss>#{lang_cancel}</paper-button>
+						<paper-button dialog-confirm onclick='setDataFromPicker#{field}()'>#{lang_ok}</paper-button>
+						</div>
+					</paper-dialog>
+				<div style='display:none'>"
+					if rangeYearBurn
+						retorno += f.date_select field,:start_year=>minYear,:end_year=>maxYear
+					else
+						retorno += f.date_select field,:start_year=>minYear,:end_year=>maxYear
+					end
+					month_1 = t "app_month_1"
+					month_2 = t "app_month_2"
+					month_3 = t "app_month_3"
+					month_4 = t "app_month_4"
+					month_5 = t "app_month_5"
+					month_6 = t "app_month_6"
+					month_7 = t "app_month_7"
+					month_8 = t "app_month_8"
+					month_9 = t "app_month_9"
+					month_10 = t "app_month_10"
+					month_11 = t "app_month_11"
+					month_12 = t "app_month_12"
+
+		retorno += "</div>
+				  <script type='text/javascript'>
+					#{field}_select_day = 0;
+					#{field}_select_month = 0;
+					#{field}_select_year = 0;
+					#{field}_dialog = null;
+					#{field}_datepicker = null;
+					var month = ['#{month_1}','#{month_2}','#{month_3}','#{month_4}','#{month_5}','#{month_6}','#{month_7}','#{month_8}','#{month_9}','#{month_10}','#{month_11}','#{month_12}'];
+				  document.addEventListener('WebComponentsReady', function(){
+						#{field}_select_day = document.querySelector('##{f.object_name}_#{field_name}_3i');
+						#{field}_select_month = document.querySelector('##{f.object_name}_#{field_name}_2i');
+						#{field}_select_year = document.querySelector('##{f.object_name}_#{field_name}_1i');
+						#{field}_dialog 	= document.querySelector('#dialog_datapicker_#{field_name}');
+						#{field}_datepicker = document.querySelector('#datepicker_#{field_name}');
+						#{field}_datepicker.maxYear = #{maxYear};
+						#{field}_datepicker.minYear = #{minYear};
+						document.querySelector('#data_#{field_name}').value = '#{date.day} de '+month[#{date.month}-1]+' de #{date.year}';
+				  });
+
+					function setDataFromPicker#{field}(){
+						date = document.querySelector('#datepicker_#{field_name}').date;
+						dateString = document.querySelector('#datepicker_#{field_name}').date;
+						dateString = dateString.toString().split(' ')
+						#{field}_select_year.selectedIndex = date.getFullYear() - #{minYear};
+						#{field}_select_day.selectedIndex = parseInt(dateString[2]) - 1;
+						#{field}_select_month.selectedIndex = date.getMonth();
+						document.querySelector('#data_#{field_name}').value = dateString[2]+' de '+month[date.getMonth()]+' de '+ date.getFullYear();
+						//console.log('year',date.getFullYear() - #{minYear});
+						//console.log('month',date.getMonth());
+						//console.log('day',parseInt(dateString[2])-1);
+					}
+				  </script>
+				  "
+		retorno.html_safe
+	end
+
+	# PAPER_DATE_SELECT_SHOW
+	# 	Controi um selecionador de data para o app apenas para visualizar
+  #
+  # === Parametros
+  #
+	# - label:: 	Label 	de descrição
+	# - data::		DATE 		com a data
+	# - icon::    String 	opcional com o icone
+	#
+	def paper_date_select_show(label,date,icon="today",rangeYearBurn=nil)
+		id = label
+    id = id.gsub(" ", "_")
+id = id.gsub("(", "_")
+id = id.gsub(")", "_")
+		month_1 = t "app_month_1"
+		month_2 = t "app_month_2"
+		month_3 = t "app_month_3"
+		month_4 = t "app_month_4"
+		month_5 = t "app_month_5"
+		month_6 = t "app_month_6"
+		month_7 = t "app_month_7"
+		month_8 = t "app_month_8"
+		month_9 = t "app_month_9"
+		month_10 = t "app_month_10"
+		month_11 = t "app_month_11"
+		month_12 = t "app_month_12"
+		retorno = "
+				  <div class='horizontal layout center'>
+						<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+							<iron-icon icon='#{icon}'></iron-icon>
+							<paper-tooltip>#{label}</paper-tooltip>
+						</div>
+						<div class='flex'>
+							<paper-input disabled style='width: 140px;' id='paper_date_select_show_#{id}'></paper-input>
+							<script>
+								var month = ['#{month_1}','#{month_2}','#{month_3}','#{month_4}','#{month_5}','#{month_6}','#{month_7}','#{month_8}','#{month_9}','#{month_10}','#{month_11}','#{month_12}'];
+								document.addEventListener('WebComponentsReady', function(){
+										document.querySelector('#paper_date_select_show_#{id}').value = '#{date.day} de '+month[#{date.month}-1]+' de #{date.year}';
+								})
+							</script>
+						</div>
+				  </div>"
+		retorno.html_safe
+	end
+
+    # método usado para se fazer a seleção, porém é realizada uma busca no sistema
+    # indicada para tabelas com alta quantidade de informações.
+    #
+    # === parametros
+    #
+    # - label::	String	campo com a label do sistema
+    # - value:: String	valor default
+    # - icon::  String	icone de exibição
+    def paper_select_search_show(label,value,icon='autorenew')
+        retorno ="<div class='layout horizontal center'>
+												<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+													<iron-icon icon='#{icon}'></iron-icon>
+													<paper-tooltip>#{label}</paper-tooltip>
+												</div>
+                        <div class='flex'>
+                            <paper-dropdown-menu disabled id='selecter_dropdown' label='#{label}'>
+                                <paper-menu selected='0' class='dropdown-content'>
+                                    <paper-item>#{value}</paper-item>
+                                </paper-dropdown>
+                            </paper-dropdown-menu>
+                        </div>
+                </div>"
+        retorno.html_safe
+    end
+
+    # método usado para se fazer a seleção, porém é realizada uma busca no sistema
+    # indicada para tabelas com alta quantidade de informações
+    #
+    # === parametros
+    #
+    # - label::         campo com a label do sistema
+    # - f::             form usado para captar formulário
+    # - field_name::    nome do campo no qual será gerado o input/campo
+    # - field_search::  nome do campo pesquisado na tabela
+    # - urlList::       url para a pesquisa
+    # - value::         valor default
+    # - icon::          icone de exibição
+    def paper_select_search(label,f,field_name,field_search,urlList,value='',icon="autorenew")
+        app_searching = t("app_search")
+        id = label
+        id = id.gsub(" ", "_")
+id = id.gsub("(", "_")
+id = id.gsub(")", "_")
+        back = t("app_back")
+        app_empty = t("app_empty")
+        retorno = "<div >
+                    <paper-dialog id='selecter_list#{id}' modal style='min-width: 50%;'>
+												<h2>"+t("app_search")+" #{label}</h2>
+												<paper-dialog-scrollable style='min-height: 150px;'>
+													<div class='horizontal layout center'>
+															<div class='one'>
+																	<paper-icon-button icon='youtube-searched-for' style='margin-top: 20px;'></paper-icon-button>
+															</div>
+															<div class='flex'>
+																	<paper-input id='selecter_search#{id}' onkeyup='selecter_search#{id}(this.value)' label='search' style='margin-left:5px;width: 100%;'></paper-input>
+															</div>
+													</div>
+													<div class='layout vertical' style='min-height:10px'id='searched_list#{id}'>
+	                        </div>
+												</paper-dialog-scrollable>
+												<div class='buttons'>
+													<paper-button dialog-confirm>"+t("app_back")+"</paper-button>
+												</div>
+                    </paper-dialog>
+                    <div class='layout horizontal center'>
+												<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+													<iron-icon icon='#{icon}'></iron-icon>
+													<paper-tooltip>"+t("app_search")+"</paper-tooltip>
+												</div>
+                    		<div class='flex'>
+	                        <paper-dropdown-menu  id='selecter_dropdown#{id}' onclick='selecter_selected#{id}()' label='#{label}'>
+														<paper-menu selected='0' class='dropdown-content' id='selecter_core_menu#{id}'>
+															<paper-item>#{value}</paper-item>
+														</paper-menu>
+	                        </paper-dropdown-menu>
+													<input id='#{f.object_name}_#{field_name}' type='hidden'>
+	                    </div>
+	                </div>
+            	</div>"
+        retorno+= "<script>
+                        function selecter_selected#{id}(){
+                            setInterval(function(){document.querySelector('#selecter_dropdown#{id}').opened = false;},100);
+                            document.querySelector('#selecter_list#{id}').open();
+                        }
+                        function selecter_set_Value#{id}(value,name){
+                            console.log('chooset',value,name);
+                            document.querySelector('#selecter_list#{id}').close();
+                            document.querySelector('#selecter_dropdown#{id}').querySelector('input').value = name;
+                            $('#searched_list#{id}').html('');
+                            document.querySelector('##{f.object_name}_#{field_name}').value = value;
+                        }
+                        function selecter_search#{id}(query){
+                            if( $('#selecter_search#{id}').val().length > 2 ){
+                                $.ajax({
+                                    method:'get',
+                                    url: '#{urlList}',
+                                    type: 'json',
+                                    data: { query: query },
+                                    beforeSend: function(){
+                                        $('#searched_list#{id}').html('');
+                                        $('#searched_list#{id}').append(\"<paper-item><iron-icon icon='autorenew'></iron-icon>#{app_searching}...</paper-item>\");
+                                    },
+                                    success: function(data){
+                                        //console.log(data);
+                                        $('#searched_list#{id}').html('');
+                                        if(data.length == 0){
+                                            $('#searched_list#{id}').append(\"<div><div 'horizontal layout center' style='height: 50px;margin: 0px -15px;'><paper-item class='flex'><iron-icon icon='cloud-queue' style='margin: 5px;'></iron-icon><div>#{app_empty}</div></paper-item></div></div>\");
+                                        }
+                                        for(a=0;a <data.length;a++){
+                                            $('#searched_list#{id}').append(\"<div 'horizontal layout center' style='height: 50px;margin: 0px -15px;'><paper-item class='flex' onclick=\\\"selecter_set_Value#{id}(\'\"+data[a].id+\"\',\'\"+data[a].#{field_search}+\"\')\\\" ><div  class='flex' style='margin-left: 24px;'>\"+data[a].#{field_search}+\"</div><paper-icon-button class='system_color' onclick=\\\"selecter_set_Value#{id}(\'\"+data[a].id+\"\',\'\"+data[a].#{field_search}+\"\')\\\" icon='add-circle-outline'></paper-icon-button></paper-item></div>\")
+                                        }
+                                    },
+                                    error:function(value){
+                                        var toast = document.querySelector('#toast');
+                                        $(toast).attr('text', 'Erroo');
+                                        toast.toggle();
+                                    }
+                                });
+                            }else{
+                                $('#searched_list#{id}').html('');
+                            }
+                        }
+												document.addEventListener('WebComponentsReady', function() {
+										      paper_dropdown = document.querySelector('#selecter_dropdown#{id}');
+										      paper_dropdown.disabled = false;
+							            paper_dropdown.querySelector('paper-menu-button').disabled = false;
+							            paper_dropdown.querySelector('iron-dropdown').disabled = false;
+													paper_dropdown.querySelector('paper-input').disabled = false;
+												});
+                    </script>"
+        retorno += "<input type='hidden' value='#{value}' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}_#{field_name}'>"
+        retorno.html_safe
+    end
+
+	# Contrói um checbox para o app
+  #
+  # === Parametros
+  #
+	# - label:: 			String com a label
+	# - f:: 					FormHelper do formulário
+	# - checkbox:: 		Symbol checkbox
+	# - value:: 			Bool valor
+	# - field_name::	String nome do campo no formulário
+	# - icon::       	String opcional com o icone
+	#
+	def paper_checkbox(label,f,checkbox,value,field_name,icon="autorenew")
+	retorno = "<div class='horizontal layout center'>
+										<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+											<iron-icon icon='#{icon}'></iron-icon>
+											<paper-tooltip>#{label}</paper-tooltip>
+										</div>
+                  	<div class='flex'>"
+                          if value
+							retorno += "<paper-checkbox onclick=\"checkBoxChanged#{f.object_name}#{field_name}(this)\" checked>#{label}</paper-checkbox>"
+                          else
+                              retorno += "<paper-checkbox onclick=\"checkBoxChanged#{f.object_name}#{field_name}(this)\" >#{label}</paper-checkbox>"
+                          end
+                          retorno +="
+													</div>
+                              <div style='display:none'>"
+						retorno += f.check_box checkbox
+                          retorno += "
+                      </div>
+                  </div>
+                  <script type='text/javascript'>"
+					retorno+="
+                      function checkBoxChanged#{f.object_name}#{field_name}(checkbox){
+                          document.getElementsByTagName('input').#{f.object_name}_#{field_name}.click();
+                      }
+                  </script>"
+      retorno.html_safe
+  end
+
+	# Contrói um checbox para o app
+  #
+  # === Parametros
+  #
+	# - label:: 		String com a label
+	# - value:: 		Bool valor
+	# - icon::      String opcional com o icone
+	#
+	def paper_checkbox_show(label, value, icon="autorenew",disabled=nil)
+		retorno = "<div class='horizontal layout center'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+						    <div class='flex'>
+						       		<paper-checkbox"
+							       	if value
+							          retorno += " checked "
+							        end
+							          retorno += " disabled >#{label}
+						        	</paper-checkbox>
+						    </div>
+						  </div>"
+		retorno.html_safe
+	end
+
+	# Contrói um color para o app
+  #
+  # === Parametros
+  #
+	# - label:: 		String com a label
+	# - value:: 		value
+	# - icon::      String opcional com o icone
+	#
+	def paper_color(label, f, field_name, value,disabled=false,list=nil)
+		id = label
+		id = id.gsub(" ", "_")
+		id = id.gsub("(", "_")
+		id = id.gsub(")", "_")
+		retorno = "<div class='horizontal layout center'>
+						    <div class='one'>
+						       		<paper-swatch-picker style='margin-left: -14px;' id='picker_#{id}' color=\"#{value}\""
+							       	if list
+							          retorno += "color-list='#{list}' "
+							        end
+											if disabled
+							          retorno += " disabled "
+							        end
+							          retorno += ">
+						        	</paper-swatch-picker>
+											<paper-tooltip>#{label}</paper-tooltip>
+											<input type='hidden' value='#{value}' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}_#{field_name}'></input>
+						    </div>
+								<div class='flex' style='color:#{value}' id='#{f.object_name}_#{field_name}_color'>
+								#{value}
+								</div>
+								<script>
+									window.addEventListener('WebComponentsReady',function(){
+											document.querySelector('#picker_#{id}').addEventListener('color-picker-selected',function(e){
+												document.querySelector('##{f.object_name}_#{field_name}').value = e.detail.color;
+												$('##{f.object_name}_#{field_name}_color').html(e.detail.color);
+												document.querySelector('##{f.object_name}_#{field_name}_color').style.color=e.detail.color;
+											})
+									})
+								</script>
+						  </div>"
+		retorno.html_safe
+	end
+
+	# Cria o select do rails e também para o de paper-select para exibir
+	#
+  # === Parametros
+  #
+  # - label:: 			String com o nome
+	# - field:: 			Form_field com o valor
+	# - values:: 			Array com o valor
+	# - value_id:: 		String com o campo id do select
+	# - value_show:: 	String com o campo de exibição do select
+	# - icon:: 				String opcional com o campo
+	#
+	def paper_select_show(label,field,values,value_id="id",value_show="nome",icon='account-balance')
+		item =0
+		someSeletect = false
+		values.each do |value|
+			if not someSeletect
+				item +=1
+				if value["#{value_id}"] == field
+					someSeletect = true
+				end
+			end
+		end
+		if not someSeletect
+			item = 0
+		end
+		retorno = "<div class='horizontal layout center'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+						    <div style='margin-bottom: 6px;margin-right: 1px;'>
+						      <paper-dropdown-menu disabled label='#{label}'>
+									<paper-menu selected='#{item}' class='dropdown-content'>"
+										retorno += "<paper-item value=''></paper-item>"
+										values.each do |value|
+		                	retorno+= "<paper-item value='"+value["#{value_id}"].to_s+"'>"+value["#{value_show}"]+"</paper-item>"
+		                end
+							retorno+="</paper-menu>
+						      </paper-dropdown-menu>
+						    </div>
+						  </div>"
+		retorno.html_safe
+	end
+
+	# Cria o select do rails e também para o de paper-select
+  #
+  # === Parametros
+  #
+	# - label:: 			String 			com o nome
+	# - f:: 					FormHelper 	do app
+	# - field:: 			Form_field 	com o valor
+	# - field_name:: 	Symbol 			com o valor
+	# - value:: 			String 			com o valor a ser exibido
+	# - values:: 			Array 			com o valor
+	# - value_id:: 		String 			com o campo id do select
+	# - value_show:: 	String 			com o campo de exibição do select
+	# - icon:: 				String 			opcional com o campo
+	# - disabled::   	Boolean			que desabilita a edição do valor
+	def paper_select(label,f,field,field_name,value,values,value_id,value_show,icon='account-balance',disabled=nil)
+		selectedItem = 0
+		item =0
+		someSeletect = false
+		retorno = "<div class='horizontal layout end'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+					    	<div class='flex' style='margin-bottom: -1px;'>
+					      <paper-dropdown-menu style='margin-top: -15px;' valueattr='value'"
+									if disabled
+										retorno+=" disabled "
+									end
+									values.each do |value|
+										if not someSeletect
+											item +=1
+											if value["#{value_id}"] == field
+												someSeletect = true
+											end
+										end
+									end
+									if not someSeletect
+										item = 0
+									end
+									retorno +="id='select_#{f.object_name}_#{field_name}' label='#{label}'>
+									<paper-menu selected='#{item}' class='dropdown-content' valueattr='value'>"
+									retorno += "<paper-item value=''></paper-item>"
+	                values.each do |value|
+										retorno+= "<paper-item value='"+value["#{value_id}"].to_s+"'>"+value["#{value_show}"]+"</paper-item>"
+	                end
+		retorno+="</paper-menu>
+					      </paper-dropdown-menu>
+					    </div>
+					  </div>
+					  <div style='display:none'>"
+					      retorno += f.collection_select(value, values, value_id, value_show, {:prompt => true, include_blank: true})
+					    retorno += "
+					  </div>
+					  <script type='text/javascript'>
+					    document.addEventListener('WebComponentsReady', function() {
+
+					      paper_dropdown = document.querySelector('#select_#{f.object_name}_#{field_name}');
+					      paper_dropdown.disabled = false;
+		            paper_dropdown.querySelector('paper-menu-button').disabled = false;
+		            paper_dropdown.querySelector('iron-dropdown').disabled = false;
+								paper_dropdown.querySelector('paper-input').disabled = false;
+
+								paper_dropdown.addEventListener('iron-select', function(e){
+              		select = document.querySelector('##{f.object_name}_#{field_name}');
+					        $(select).val($(e.detail.item).attr('value'));
+									//console.log(select);
+									//console.log($(e.detail.item).attr('value'));
+					      });
+
+					    })
+					  </script>"
+		retorno.html_safe
+	end
+
+	# Cria um input hidden para o sistema
+  #
+  # === Parametros
+  #
+	# - f:: 					FormHelper 	do app
+	# - field_name:: 	Symbol 			com o valor
+	# - value::  			Valor 			do campo
+	def paper_hidden f,field_name,value
+		retorno = "<input type='hidden' value='#{value}' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}[#{field_name}]'>"
+		retorno.html_safe
+	end
+
+    # Cria uma escolha entre valores e não sobre id como é o paper_select
+    #
+    # === Parametros
+    #
+    # - label::          String      nome dado ao chooser
+    # - f::              former      formulário padrão
+    # - field_name::     String      nome do campo
+    # - values::         Array       com os valores possíveis
+    # - valueSelected::  String      valor padrão selecionado (presente no array)
+    # - vertical::       String      se diferente de nil, então os elementos são dispostos verticalmente
+    # - icon::           String      opcional, adiciona um icon
+    def paper_chooser label, f, field_name, values, valueSelected,vertical=nil,icon='check'
+        retorno = "<div class='horizontal layout center'>
+											<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+												<iron-icon icon='#{icon}'></iron-icon>
+												<paper-tooltip>#{label}</paper-tooltip>
+											</div>
+                        <div class='flex'>
+                            <paper-radio-group selected='#{valueSelected}'>"
+                            values.each do |value|
+                                if vertical
+                                    retorno += "<paper-radio-button onclick=\"#{field_name}_chooser('#{value}')\" name='#{value}' style='display:block'>#{value}</paper-radio-button>"
+                                else
+                                    retorno += "<paper-radio-button onclick=\"#{field_name}_chooser('#{value}')\" name='#{value}'>#{value}</paper-radio-button>"
+                                end
+
+                            end
+        retorno +=      "   </paper-radio-group>
+                        </div>
+                        <script>
+                            function #{field_name}_chooser(value){
+                                document.querySelector('input[id=\"#{f.object_name}[#{field_name}]\"]').value = value;
+                            }
+                        </script>
+                        <input type='hidden' value='#{valueSelected}' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}[#{field_name}]'>"
+        retorno +="</div>"
+        retorno.html_safe
+    end
+
+    # Cria uma escolha entre valores e não sobre id como é o paper_select
+    #
+    # === Parametros
+    #
+    # - label::          String      nome dado ao chooser
+    # - values::         Array       com os valores possíveis
+    # - valueSelected::  String      valor padrão selecionado (presente no array)
+    # - vertical::       String      se diferente de nil, então os elementos são dispostos verticalmente
+    # - icon::           String      opcional, adiciona um icon
+		def paper_chooser_show label, values, valueSelected,vertical=nil,icon='check'
+		retorno = "<div class='horizontal layout'>
+												<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+													<iron-icon icon='#{icon}'></iron-icon>
+													<paper-tooltip>#{label}</paper-tooltip>
+												</div>
+                        <div class='flex'>
+														<paper-radio-group selected='#{valueSelected}'>"
+                            values.each do |value|
+                                if vertical
+                                    retorno += "<paper-radio-button disabled name='#{value}' style='display:block'>#{value}</paper-radio-button>"
+                                else
+                                    retorno += "<paper-radio-button disabled name='#{value}'>#{value}</paper-radio-button>"
+                                end
+                            end
+        retorno +=      "   </paper-radio-group>
+                        </div>"
+        retorno +="</div>"
+        retorno.html_safe
+    end
+
+    # este é um complexo helper modelado para as relações N:N entre duas tabelas.
+    # Porém também conta com sistema de lista, pesquisa, adicionamento e exclusão de registro.
+		# Escreva '*' para listar todos
+		#
+    # === Parametros
+    #
+    # - label::                  String      nome dado ao chooser
+    # - table::                  String      com o nome completo, por exemplo 'japeto_requerentes_processo'
+    # - addRelationColumn::      String      nome do campo da relação, por exemplo 'processo_id'
+    # - addRelationId::          Integer     id para se fazer a relação, no caso aqui é o valor do campo 'processo_id'
+    # - urlList::                String      com o endereço que retorna a lista com todos os registros
+    # - urlSearch::              String      com o endereço que será usado para pesquisar os item que podem ser adicionados
+    # - urlAdd::                 String      url para a inserção da relação de addRelationColumn e addRelationLeftColumn
+    # - urlDelete::              String      url da CONTROLLER para qual será realizado a requisição de remoção
+    # - addRelationLeftColumn::  String      nome do campo da direita, ou seja a outra coluna, no exemplo 'pessoa_id'
+    # - fieldname::              String      nome do campo que trará a informação que será usada como rótulo (label) na exibição da informação na interface
+    # - icon::                   String      (opcional) ele serve para ilustrar iconograficamente o tipo de elemento
+    #
+    # exemplo de método urlList
+    #                                            def list
+    #                                                  query = params['processo_id'];
+    #                                                  @japeto_requerentes_processos = Japeto::RequerentesProcesso.select ('japeto_requerentes_processos .id,nome').joins (:pessoa).where ("processo_id = ?", "#{query}");
+    #                                                  respond_to do |format|
+    #                                                      format.json { render :json => @japeto_requerentes_processos }
+    #                                                  end
+    #                                              end
+    # exemplo de método urlSearch
+    #                                           Exemplo de
+    #                                               def getSearch
+    #                                                  query = params['query'];
+    #                                                  @search = Japeto::Pessoa.where("nome LIKE ? OR sobrenome LIKE ?", "%#{query}%","%#{query}%");
+    #                                                  respond_to do |format|
+    #                                                      format.json { render :json => @search }
+    #                                                  end
+    #                                              end
+    #
+    # exemplo de método urlAdd
+    #                                    def insert
+    #                                      @japeto_requerentes_processo =  Japeto::RequerentesProcesso.new ( japeto_requerentes_processo_params )
+    #                                      respond_to do |format|
+    #                                          if @japeto_requerentes_processo.save
+    #                                            format.json { render json: @japeto_requerentes_processo }
+    #                                          else
+    #                                            format.json { render json: @japeto_requerentes_processo.errors, status: :unprocessable_entity }
+    #                                          end
+    #                                      end
+    #                                  end
+    #
+    # exemplo de método delete
+    #   Aqui foi usado a própria implementação (destroy)
+		#
+		# Callback
+		# 	Defina a função abaixo para receber os valores de acordo com a interação que se realiza no sistema
+		#
+		# 	 	function paper_relation_nn_<label>_callback(['listed','created','deleted','searched'],value,['success','fail'])
+    def paper_relation_nn label, table, addRelationColumn, addRelationId, urlList, urlSearch, urlAdd, urlDelete, addRelationLeftColumn, field='nome', icon='account-box'
+
+        #creating id
+        id = label.clone
+				id = id.downcase
+        id = id.gsub(" ", "_")
+id = id.gsub("(", "_")
+id = id.gsub(")", "_")
+
+        #creating labels
+        app_dialog_sure_delete = t("app_dialog_sure_delete")
+        app_relation_nn_adding = t("app_relation_nn_adding")
+        app_relation_nn_adding_error =  t("app_relation_nn_adding_error")
+        app_relation_nn_removed = t("app_relation_nn_removed")
+        app_relation_nn_removed_error = t("app_relation_nn_removed_error")
+        app_relation_nn_empty = t("app_relation_nn_empty")
+        app_back = t "app_back"
+        app_delete = t "app_delete"
+        app_search = t "app_search"
+        app_yes = t "app_yes"
+        app_add = t "app_add"
+        app_no = t "app_no"
+        app_empty = t "app_empty"
+        app_saving = t "app_saving"
+        app_searching = t "app_searching"
+        app_relation_nn_error_load = t "app_relation_nn_error_load"
+        app_searching_err = t "app_searching_err"
+				lang_registers = t "app_registers"
+
+        #creating the code
+        retorno = "<div class='layout horizontal center' style='margin-top:20px'>
+										<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+											<iron-icon icon='#{icon}'></iron-icon>
+											<paper-tooltip >#{label}</paper-tooltip>
+										</div>
+										<paper-item-body class='flex'>
+											<div>#{label}</div>
+											<div id='list_size_#{id}' secondary>#{app_searching}...</div>
+										</paper-item-body>
+										<div class='one' style='display:inline-block'>
+											<paper-icon-button icon='av:playlist-add' onclick='openDialogAdding#{id}()' class='system_color'></paper-icon-button>
+											<paper-tooltip >#{app_add} #{label}</paper-tooltip>
+										</div>
+									</div>
+									<div class='layout horizontal start' style='padding: 0px 19px 0px 27px;margin-bottom:20px'>
+											<div class='flex'>
+														<paper-menu selected='' class='layout vertical start' id='added_#{id}' >
+														</paper-menu>
+											</div>
+									</div>"
+        retorno += "<paper-dialog id='relation_list_dialog_adding_#{id}' modal style='min-width:50%'>
+												<h2>"+t("app_add")+" #{label}</h2>
+                        <paper-dialog-scrollable>
+													<div class='horizontal layout start'>
+															<div class='flex'>
+	                                <paper-input id='search_#{id}' onkeyup='search_#{id}(this.value)' label='#{label}'>
+																		<iron-icon icon='youtube-searched-for' prefix></iron-icon>
+																		<iron-icon icon='clear' onclick=\"document.querySelector('#search_#{id}').value=''\"suffix></iron-icon>
+																	</paper-input>
+	                            </div>
+	                        </div>
+													<div class='layout vertical' id='searched_#{id}'>
+	                        </div>
+												</paper-dialog-scrollable>
+												<div class='buttons'>
+											    <paper-button dialog-confirm>#{app_back}</paper-button>
+											  </div>
+
+                    </paper-dialog>"
+		retorno += "<paper-dialog id='relation_list_dialog_delete_#{id}' modal >
+                      <h2>#{app_delete}</h2>
+											<paper-dialog-scrollable>
+												<p>#{app_dialog_sure_delete}</p>
+											</paper-dialog-scrollable>
+											<div class='buttons'>
+	                      <paper-button dialog-dismiss onclick='forgetRelation#{id}()' >#{app_no}</paper-button>
+	                      <paper-button dialog-confirm onclick='deleteRelation_#{id}()'>#{app_yes}</paper-button>
+                    	</div>
+										</paper-dialog>"
+        retorno += "<script>
+                        var to_delete_relation_left_#{id};
+                        var to_delete_relation_id_#{id};
+												var total_#{id} = 0 ;
+												function setTotal#{id}(){
+													$('#list_size_#{id}').html(total_#{id}+' #{lang_registers}')
+												}
+                        function openDialogAdding#{id}(){
+                            document.querySelector('#search_#{id}').value = '';
+                            document.querySelector('#relation_list_dialog_adding_#{id}').open();
+                        }
+                        function setToDelete#{id}(value){
+                            to_delete_relation_id_#{id} = value;
+                            document.querySelector('#relation_list_dialog_delete_#{id}').open();
+                        }
+                        function forgetRelation#{id}(){
+                            to_delete_relation_left_#{id} = '';
+                        }
+                    "
+        # function List()
+        retorno += "function list_#{id}(){
+                        $.ajax({
+                                method:'get',
+                                url: '#{urlList}',
+                                type: 'json',
+                                data: {'action':'list','#{addRelationColumn}':'#{addRelationId}'},
+                                beforeSend: function(){
+                                    $('#added_#{id}').html('');
+                                    $('#added_#{id}').append(\"<paper-item><iron-icon icon='autorenew' style='margin: 5px;'></iron-icon><div> #{app_searching}...</div></paper-item>\");
+                                },
+                                success: function(data){
+                                    $('#added_#{id}').html('');
+                                    if(data != null){
+                                        for(a=0; a< data.length;a++){
+                                            $('#added_#{id}').append(\"<paper-item id='search_#{id}_\"+data[a].id+\"' style='width: 100%;'><iron-icon icon='#{icon}'></iron-icon><div class='flex'>\"+data[a].#{field}+\"</div><paper-icon-button class='system_danger_color' onclick=\\\"setToDelete#{id}(\'\"+data[a].id+\"\')\\\" title='#{app_delete}' icon='remove-circle-outline'></paper-icon-button></paper-item>\");
+                                        }
+                                        if(data.length == 0){
+                                            $('#added_#{id}').append(\"<paper-item id='empty_#{id}'><iron-icon icon='cloud-queue' style='margin-right:5px'></iron-icon>#{app_empty}</paper-item>\");
+                                        }
+																				total_#{id} = data.length;
+																				$('#list_size_#{id}').html(data.length+' #{lang_registers}')
+                                    }else{
+																				$('#list_size_#{id}').html('0 #{lang_registers}')
+																		}
+																		if(typeof(paper_relation_nn_#{id}_callback) == 'function'){
+																			paper_relation_nn_#{id}_callback('listed',data,'success');
+																		}
+                                },
+                                error:function(value){
+                                    $('#added_#{id}').html('');
+																		$('#list_size_#{id}').html('#{app_relation_nn_error_load}')
+                                    $('#added_#{id}').append(\"<paper-item style='width: 100%;'><iron-icon icon='cloud-off' style='width: 100%;'></iron-icon></paper-item>\");
+																		if(typeof(paper_relation_nn_#{id}_callback) == 'function'){
+																			paper_relation_nn_#{id}_callback('listed',data,'fail');
+																		}
+                                }
+                            });
+                    }"
+        # function search
+        retorno += "function search_#{id}(query){
+												if( $('#search_#{id}').val().length > 2 || $('#search_#{id}').val() == '*' ){
+														if($('#search_#{id}').val() == '*'){
+															query = '';
+														}
+														$.ajax({
+                                method:'get',
+                                url: '#{urlSearch}',
+                                type: 'json',
+                                data: { query: query },
+                                beforeSend: function(){
+                                    $('#searched_#{id}').html('');
+                                    $('#searched_#{id}').append(\"<div><div class='horizontal layout center' style='height: 50px;margin: 0px -15px;'><paper-item flex><iron-icon icon='autorenew' style='margin: 5px;'></iron-icon><div> #{app_searching}...</div></paper-item></div></div>\");
+                                },
+                                success: function(data){
+                                    //console.log(data);
+                                    $('#searched_#{id}').html('');
+                                    if(data.length == 0){
+                                        $('#searched_#{id}').append(\"<div><div class='horizontal layout center' style='height: 50px;margin: 0px -15px;'><paper-item class='flex'><iron-icon icon='cloud-queue' style='margin: 5px;'></iron-icon><div> Sem Registro</div></paper-item></div></div>\");
+                                    }
+                                    for(a=0;a <data.length;a++){
+                                        $('#searched_#{id}').append(\"<div><div class='horizontal layout center' style='height: 50px;margin: 0px -15px;'><paper-item class='flex'><iron-icon icon='#{icon}'></iron-icon><div>\"+data[a].#{field}+\"</div></paper-item><paper-item one><paper-icon-button class='system_color' onclick='addRelation_#{id}(\\\"\"+data[a].id+\"\\\",\\\"\"+data[a].#{field}+\"\\\")' title='Adicionar' icon='add-circle-outline'></paper-icon-button></paper-item></div></div>\")
+                                    }
+																		if(typeof(paper_relation_nn_#{id}_callback) == 'function'){
+																			paper_relation_nn_#{id}_callback('searched',data,'success');
+																		}
+                                },
+                                error:function(value){
+                                    var toast = document.querySelector('#toast');
+                                    $(toast).attr('text', '#{app_searching_err}');
+                                    toast.toggle();
+																		if(typeof(paper_relation_nn_#{id}_callback) == 'function'){
+																			paper_relation_nn_#{id}_callback('searched',data,'fail');
+																		}
+                                }
+                            });
+                        }else{
+                            $('#searched_#{id}').html('');
+                        }
+                    }"
+        # funcao pes
+        retorno += "function deleteRelation_#{id}(){
+                        var element = document.querySelector('#search_#{id}_'+to_delete_relation_id_#{id});
+                        var toast;
+                        $.ajax({
+                                method:'DELETE',
+                                url: '#{urlDelete}'+to_delete_relation_id_#{id}+'/',
+                                type: 'json',
+                                data: {'action':'DELETE'},
+                                beforeSend: function(){
+                                    $(element).css('background-color','#eeeeee');
+                                    //console.log('beforeSend');
+                                },
+                                success: function(data){
+                                    $(element).remove();
+                                    toast = document.querySelector('#toast');
+																		total_#{id} -=1;
+																		setTotal#{id}();
+                                    $(toast).attr('text', '#{app_relation_nn_removed}');
+                                    toast.toggle();
+                                    //console.log(data);
+																		if(typeof(paper_relation_nn_#{id}_callback) == 'function'){
+																			paper_relation_nn_#{id}_callback('deleted',data,'success');
+																		}
+                                },
+                                error:function(value){
+                                    toast = document.querySelector('#toast');
+                                    //console.log(value);
+                                    if(value.responseText == 'success'){
+                                        $(element).remove();
+                                        $(toast).attr('text', '#{app_relation_nn_removed}');
+																				total_#{id} -=1;
+																				setTotal#{id}();
+                                        toast.toggle();
+                                    }else{
+                                        //console.log('error');
+                                        $(element).css('background-color','');
+                                        $(toast).attr('text', '#{app_relation_nn_removed_error}');
+                                        toast.toggle();
+                                    }
+																		if(typeof(paper_relation_nn_#{id}_callback) == 'function'){
+																			paper_relation_nn_#{id}_callback('deleted',value,'fail');
+																		}
+                                }
+                            });
+                    }"
+        retorno += "function addRelation_#{id}(value,name){
+                        $.ajax({
+                                method:'get',
+                                url: '#{urlAdd}',
+                                type: 'json',
+                                data: {
+                                    #{table}: {#{addRelationLeftColumn}: value,#{addRelationColumn}: '#{addRelationId}' }
+                                },
+                                beforeSend: function(){
+                                    $('#searched_#{id}').html('');
+                                    $('#search_#{id}').val(name);
+                                    document.querySelector('#search_#{id}').disabled = true;
+                                    $('#searched_#{id}').append(\"<div><div class='horizontal layout center' style='height: 50px;margin: 0px -15px;'><paper-item flex><iron-icon icon='save' style='margin: 5px;'></iron-icon><div> #{app_saving}...</div></paper-item></div></div>\");
+                                },
+                                success: function(data){
+                                    $('#searched_#{id}').html('');
+                                    document.querySelector('#search_#{id}').disabled = false;
+                                    document.querySelector('#relation_list_dialog_adding_#{id}').close();
+                                    //console.log(data);
+                                    toast = document.querySelector('#toast');
+                                    try{
+																				total_#{id} +=1;
+																				setTotal#{id}();
+                                        $('#added_#{id}').append(\"<paper-item id='search_#{id}_\"+data.id+\"' style='width:100%'><iron-icon icon='account-box'></iron-icon><div class='flex'>\"+name+\"</div><paper-icon-button class='system_danger_color' onclick='setToDelete#{id}(\"+data.id+\")' title='#{app_delete}' icon='remove-circle-outline'></paper-icon-button></paper-item>\");
+                                    }catch(err ){
+                                        $('#searched_#{id}').html('');
+                                        $('#searched_#{id}').append(\"<paper-item ><iron-icon icon='error' style='margin: 5px;'></iron-icon><div> #{app_relation_nn_adding_error}</div></paper-item>\");
+                                        $(toast).attr('text', '#{app_relation_nn_adding_error}');
+                                        toast.toggle();
+                                    }
+                                    try{
+                                        $('#empty_#{id}').remove();
+                                    }catch(err){
+                                    }
+																		if(typeof(paper_relation_nn_#{id}_callback) == 'function'){
+																			paper_relation_nn_#{id}_callback('created',data,'success');
+																		}
+                                },
+                                error:function(value){
+                                    $('#searched_#{id}').html('');
+                                    document.querySelector('#search_#{id}').disabled = false;
+																		document.querySelector('#relation_list_dialog_adding_#{id}').toggle();
+																		$(toast).attr('text', '#{app_relation_nn_adding_error}');
+																		toast.toggle();
+                                    $('#searched').append(\"<div><div class='horizontal layout center' style='height: 50px;margin: 0px -15px;'><paper-item 'flex'><iron-icon icon='error' style='margin: 5px;'></iron-icon><div>#{app_relation_nn_adding_error}</div></paper-item></div></div>\");
+																		if(typeof(paper_relation_nn_#{id}_callback) == 'function'){
+																			paper_relation_nn_#{id}_callback('created',data,'fail');
+																		}
+																}
+                            });
+                    }"
+        retorno +="document.addEventListener('WebComponentsReady', function(){
+                        list_#{id}();
+                    })
+                    </script>"
+        retorno.html_safe
+    end
+
+
+    # este é um complexo helper modelado para as relações N:N entre duas tabelas.
+    # Sua única atribuição é a exibição e tem poder de edição. Porém também conta com sistema de lista de registros.
+    #
+    # === Parametros
+    #
+    # - label::                  String      nome dado ao chooser
+    # - addRelationColumn::      String      nome do campo da relação, por exemplo 'processo_id'
+    # - addRelationId::          Integer     id para se fazer a relação, no caso aqui é o valor do campo 'processo_id'
+    # - urlList::                String      com o endereço que retorna a lista com todos os registros
+    # - fieldname::              String      nome do campo que trará a informação que será usada como rótulo (label) na exibição da informação na interface
+    # - icon::                   String      (opcional) ele serve para ilustrar iconograficamente o tipo de elemento
+    #
+    # exemplo de método urlList
+    #                                            def list
+    #                                                  query = params['processo_id'];
+    #                                                  @japeto_requerentes_processos = Japeto::RequerentesProcesso.select ('japeto_requerentes_processos .id,nome').joins (:pessoa).where ("processo_id = ?", "#{query}");
+    #                                                  respond_to do |format|
+    #                                                      format.json { render :json => @japeto_requerentes_processos }
+    #                                                  end
+    #                                              end
+    #
+    def paper_relation_nn_show label, addRelationColumn, addRelationId, urlList, field='nome', icon='account-box'
+
+        #creating id
+        id = label.clone
+        id = id.gsub(" ", "_")
+id = id.gsub("(", "_")
+id = id.gsub(")", "_")
+
+        #creating labels
+        app_dialog_sure_delete = t "app_dialog_sure_delete"
+        app_relation_nn_error_load = t "app_relation_nn_error_load"
+        app_searching = t "app_searching"
+        app_empty = t "app_empty"
+				lang_registers = t"app_registers"
+				app_add = t "app_add"
+        #creating the code
+        retorno = "<div class='layout horizontal center' style='margin-top:20px'>
+										<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+											<iron-icon icon='#{icon}'></iron-icon>
+											<paper-tooltip >#{label}</paper-tooltip>
+										</div>
+										<paper-item-body class='flex'>
+											<div>#{label}</div>
+											<div id='list_size_#{id}' secondary>#{app_searching}...</div>
+										</paper-item-body>
+										<div class='one' style='display:inline-block'>
+											<paper-icon-button disabled icon='av:playlist-add' class='system_color'></paper-icon-button>
+											<paper-tooltip >#{app_add} #{label}</paper-tooltip>
+										</div>
+									</div>
+									<div class='layout horizontal start' style='padding: 0px 19px 0px 27px;margin-bottom:20px'>
+											<div class='flex'>
+														<paper-menu selected='' class='layout vertical start' id='added_#{id}' >
+														</paper-menu>
+											</div>
+									</div>"
+        # function List()
+        retorno += "<script>
+                    function list_#{id}(){
+                        $.ajax({
+                                method:'get',
+                                url: '#{urlList}',
+                                type: 'json',
+                                data: {'action':'list','#{addRelationColumn}':#{addRelationId}},
+                                beforeSend: function(){
+                                    $('#added_#{id}').html('');
+                                    $('#added_#{id}').append(\"<paper-item><iron-icon icon='autorenew' style='margin: 5px;'></iron-icon><div class='flex'> #{app_searching}...</div></paper-item>\");
+                                },
+                                success: function(data){
+                                    $('#added_#{id}').html('');
+                                    if(data != null){
+                                        for(a=0; a< data.length;a++){
+                                            $('#added_#{id}').append(\"<paper-item disabled><iron-icon icon='#{icon}'></iron-icon><div class='flex'>\"+data[a].#{field}+\"</div></paper-item>\");
+                                        }
+                                        if(data.length == 0){
+                                            $('#added_#{id}').append(\"<paper-item><iron-icon icon='cloud-queue' style='margin-right:5px'></iron-icon>#{app_empty}</paper-item>\");
+                                        }
+																				$('#list_size_#{id}').html(data.length+' #{lang_registers}');
+                                    }else{
+																				$('#list_size_#{id}').html('? #{lang_registers}');
+																		}
+
+                                },
+                                error:function(value){
+                                    $('#added_#{id}').html('');
+																		$('#list_size_#{id}').html('#{app_relation_nn_error_load}');
+                                    $('#added_#{id}').append(\"<paper-item><iron-icon icon='cloud-off' style='margin: 5px;'></iron-icon>#{app_relation_nn_error_load}</paper-item>\");
+                                }
+                            });
+                    }"
+        retorno +="	document.addEventListener('WebComponentsReady', function(){
+                        list_#{id}();
+                    })
+                    </script>"
+        retorno.html_safe
+    end
+
+	# Contrói o uploader para realizar o envio de arquivos
+  #
+  # === Parametros
+  #
+	# - label:: 					String 			com a label
+	# - f:: 							FormHelper 	do formulário
+	# - field_name::			String 			nome do campo
+	# - icon::						String 			opcional com o icone
+	# - multiple_files::	Boolean			permite ou não enviar mais de um arquivo
+	#
+	def paper_upload_file(label,f,field_name,icon="editor:attach-file",multiple_files=false)
+		retorno = "<div class='horizontal layout end'>
+				    <div class='one' style='display:inline-block'>
+							<paper-tooltip >#{label}</paper-tooltip>
+							<iron-icon icon='#{icon}'></iron-icon>
+				    </div>
+				    <div class='flex'>"
+		retorno += f.file_field field_name, multiple: multiple_files
+
+		retorno +="
+				    </div>
+				  </div>"
+		retorno.html_safe
+	end
+
+	# Constroi o botão pra download de arquivos
+  #
+  # === Parametros
+  #
+	# - label:: 		String 			com a label
+	# - value:: 		String/Int 	com o valor do campo
+	# - icon::      String 			opcional com o icone
+	#
+	def paper_download_show(label,value,icon="archive")
+		id = label
+		id = id.gsub(' ', '_')
+		retorno = "<div class='horizontal layout center'>
+						<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+							<iron-icon icon='#{icon}' id='download_#{id}' ></iron-icon>
+							<paper-tooltip>#{label}</paper-tooltip>
+						</div>
+				    <div class='flex'>
+						<form id='download_#{id}' method='get' action='#{value}'>
+							<paper-button onclick=\"document.querySelector('#download_#{id}').submit()\">Download</paper-button>
+						</form>
+				    </div>
+				  </div>"
+		retorno.html_safe
+	end
+
+	# Constroi um editor de texto para o
+	# 	o sistema atHome
+  # === Parametros
+  #
+	# - label:: 			String 			com a label
+	# - f:: 					FormHelper 	do formulário
+	# - field_name::	String 			nome do campo
+	# - value:: 			String/Int 	com o valor do campo
+	#
+	def paper_editor(label,f,field_name,valeu,icon="account-balance")
+		retorno = "<div class='horizontal layout start' style='margin: 20px 0px;'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+						    <div class='flex'>
+									<div class='class_editor cke_focus' name='editor_#{field_name}'  id='editor_#{field_name}'>
+										#{valeu}
+									</div>
+									<input type='hidden' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}_#{field_name}'>
+						    </div>
+								<style>
+									.cke_editable{
+										font-family: 'Times New Roman', Georgia, Serif; !important;
+										font-weight: 300;
+										min-height:150px;
+										clear:both !important;
+										border: 1px #757575 solid;
+									}
+								</style>
+						  </div>
+							<script>
+									$(document).ready(function( evt ) {
+										var editorElement = CKEDITOR.document.getById( 'editor_#{field_name}' );
+										editorElement.setAttribute( 'contenteditable', 'true' );
+										setTimeout(function(){
+								        CKEDITOR.instances.editor_#{field_name}.on('change',function(){
+															$('##{f.object_name}_#{field_name}').val(CKEDITOR.instances.editor_#{field_name}.getData())
+												})
+								    }, 3000);
+									});
+
+							</script>"
+		retorno.html_safe
+	end
+
+	# Constroi um show para o editor
+	#
+  # === Parametros
+  #
+	# - label:: 			String 			com a label
+	# - field_name::	String 			nome do campo
+	# - value:: 			String/Int 	com o valor do campo
+	#
+	def paper_editor_show(label,valeu,icon="account-balance")
+		id = label
+		id = id.gsub(' ', '_')
+		retorno = "<div class='horizontal layout start' style='margin: 20px 0px;'>
+								<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+									<iron-icon icon='#{icon}'></iron-icon>
+									<paper-tooltip>#{label}</paper-tooltip>
+								</div>
+						    <div class='flex'>
+									<div class='class_editor cke_focus' name='#{id}'  id='#{id}'>
+										#{valeu}
+									</div>
+						    </div>
+								<style>
+									.cke_editable{
+										font-family: 'Times New Roman', Georgia, Serif; !important;
+										font-weight: 300;
+										min-height:150px;
+										clear:both !important;
+										border: 1px #757575 solid;
+									}
+								</style>
+						  </div>
+							<script>
+								$(document).ready(function(){
+										var editorElement = CKEDITOR.document.getById( '#{id}' );
+								});
+							</script>"
+		retorno.html_safe
+	end
+
+	def paper_chooser_file label,f,field_name,value,files,icon="editor:insert-photo",url_to_upload='/system/files/new'
+		app_helper_paper_choose_file = t "app_helper_paper_choose_file"
+		app_cancel = t "app_cancel"
+		app_ok = t "app_ok"
+		retorno = "
+				<div class='horizontal layout start'>
+						<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+							<iron-icon icon='#{icon}'></iron-icon>
+							<paper-tooltip>#{label}</paper-tooltip>
+						</div>
+						<div class='flex'>
+							<div style='cursor:pointer' onClick=\"document.querySelector('#dialog_chooser_#{field_name}').toggle()\" class='horizontal layout end'>
+								<paper-material elevation='1' style='padding:5px'>
+									<iron-image id='image_show_#{field_name}' src='#{value}' sizing='contain' style='width:250px;height:250px'></iron-image>
+								</paper-material>
+								<paper-fab icon='image:collections' style='position: relative; margin-left: -30px; margin-bottom: -20px;'></paper-fab>
+							</div>
+							<input type='hidden' value='#{value}' name='#{f.object_name}[#{field_name}]' id='#{f.object_name}_#{field_name}'  />
+						</div>
+				</div>
+				<paper-dialog style='width:70%;' id='dialog_chooser_#{field_name}' modal >
+				<h2>#{app_helper_paper_choose_file}</h2>
+				<div class='horizontal layout start'>
+						<paper-tabs class='flex' selected='0' style='border-bottom: #fafafa 1px solid;'>
+							<paper-tab onclick=\"document.querySelector('#pages_#{field_name}').selected=0\">Imagens</paper-tab>
+							<paper-tab onclick=\"document.querySelector('#pages_#{field_name}').selected=1\">Url</paper-tab>
+							<paper-tab onclick=\"document.querySelector('#pages_#{field_name}').selected=2\">Upload</paper-tab>
+						</paper-tabs>
+				</div>
+				<div class='horizontal layout start' style='min-height:250px'>
+					<iron-pages class='flex' selected='0' id='pages_#{field_name}'>
+						<div >"
+		files.each do |file|
+
+			type = file.content_type.split('.')
+	    type = type[type.length-1]
+	    type = type.downcase
+			case type
+	      when 'pdf','doc','docx'
+	          url_file_to_show = 'http://placehold.it/350x150/00796B/ffffff/?text='+type
+		     else
+			      url_file_to_show = "/data/"+file.name
+	    end
+
+			if file.original_name.length > 12
+				name_file = file.original_name[0,14]+"..."
+			else
+				name_file =file.original_name
+			end
+
+			retorno += " <paper-card onClick=\"card_selected#{field_name}(this,'#{file.name}','#{url_file_to_show}')\" style='cursor:pointer;max-width: 250px;margin-bottom: 15px;' heading='#{name_file}' image='#{url_file_to_show}'>
+										</paper-card>"
+		end
+
+		retorno+="</div>
+						<div>
+							<div class='horizontal layout start'>
+								<div class='flex'>
+									<div class='horizontal layout end'>
+										<paper-icon-button icon='http' style='fill:steelblue;'></paper-icon-button>
+										<paper-input class='flex' onkeyup='setURL#{field_name}(this.value,this.value)'></paper-input>
+									</div>
+								</div>
+							</div>
+							<div class='horizontal layout center-justified'>
+								<iron-image class='flex' id='image_#{field_name}' style='width:300px;height:300px' sizig='cover'></iron-image>
+							</div>
+						</div>
+						<div style='text-align:center'>
+							<iron-image src='/assets/system/upload.png' onclick=\"location.href='#{url_to_upload}'\" sizing='contain' style='cursor:pointer;width:250px;height:250px'></iron-image>
+						</div>
+					<iron-pages>
+				</div>
+					<div class='buttons'>
+						<paper-button dialog-dismiss>#{app_cancel}</paper-button>
+						<paper-button dialog-confirm>"+ t('app_understood')+"</paper-button>
+					</div>
+				</paper-dialog>
+
+				<script>
+					function setURL#{field_name}(input_in,image){
+						document.querySelector('##{f.object_name}_#{field_name}').value = input_in;
+						document.querySelector('#image_#{field_name}').src = input_in;
+						document.querySelector('#image_show_#{field_name}').src = image;
+					}
+					function card_selected#{field_name}(obj,url,image){
+						obj.elevation = 1;
+						document.querySelector('##{f.object_name}_#{field_name}').value = url;
+						document.querySelector('#dialog_chooser_#{field_name}').toggle();
+						document.querySelector('#image_show_#{field_name}').src = image;
+					}
+				</script>"
+
+			retorno.html_safe
+	end
+
+	def paper_chooser_file_show label,field_name,value,icon="editor:insert-photo"
+		retorno = "
+				<div class='horizontal layout start'>
+						<div class='one' style='margin-right:20px;margin-bottom:2px;'>
+							<iron-icon icon='#{icon}'></iron-icon>
+							<paper-tooltip>#{label}</paper-tooltip>
+						</div>
+						<div class='flex'>
+							<div onClick=\"document.querySelector('#dialog_chooser_#{field_name}').toggle()\" class='horizontal layout end'>
+								<paper-material elevation='1' style='padding:5px'>
+									<iron-image id='image_show_#{field_name}' src='#{value}' sizing='contain' style='width:250px;height:250px'></iron-image>
+								</paper-material>
+								<paper-fab disabled icon='image:collections' style='position: relative; margin-left: -30px; margin-bottom: -20px;'></paper-fab>
+							</div>
+						</div>
+				</div>".html_safe
+	end
+
+	# Cria uma lista de valores sem id útil para listas de mongodb
+	#
+	# === Parametros
+	#
+	# - label::          String      nome dado ao chooser
+	# - f::              former      formulário padrão
+	# - field_name::     String      nome do campo
+	# - values::         Array       com os valores possíveis
+	# - icon::           String      opcional, adiciona um icon
+	def paper_array_list label, f, field_name, values, icon='build'
+		app_back = t "app_back"
+		app_delete = t "app_delete"
+		app_add = t"app_add"
+		retorno = "<paper-material style='margin-bottom:20px' elevation='1'>
+								<div class='layout horizontal center' style='margin-top:20px'>
+										<div class='flex'>
+											<paper-icon-item>
+												<div item-icon style='display:inline-block'>
+													<iron-icon icon='#{icon}'></iron-icon>
+													<paper-tooltip >#{label}</paper-tooltip>
+												</div>
+												<paper-item-body two-line>
+													<div>#{label}</div>
+													<div id='list_size_#{field_name}' secondary></div>
+												</paper-item-body>
+												<div style='display:inline-block'>
+													<paper-icon-button icon='av:playlist-add' onclick='openArraytDialog#{field_name}()' class='system_color'></paper-icon-button>
+													<paper-tooltip >#{app_add} #{label}</paper-tooltip>
+												</div>
+											</paper-icon-item>
+										</div>
+								</div>
+								<div class='layout horizontal start' style='padding: 0px 55px;'>
+								    <div class='flex'>
+								          <paper-menu selected='0' class='layout vertical start' id='array_list_added_#{field_name}' >"
+								          position=0
+													if values != nil
+									          values.each do |value|
+									            retorno+="<paper-item style='width: 100%'><div class='flex'>#{value}</div><paper-icon-button icon='remove-circle-outline' onclick='setToDeleteservices(#{position})' class='system_danger_color'></paper-icon-button></paper-item>"
+									            position +=1
+									          end
+													end
+								retorno+="</paper-menu>
+								    </div>
+								</div>
+				</paper-material>"
+				retorno +="<paper-dialog id='array_dialog_#{field_name}' modal style='min-width:50%'>
+												<h2>"+t("app_add")+" #{label}</h2>
+												<paper-dialog-scrollable>
+													<div class='horizontal layout start'>
+															<div class='flex'>
+																	<paper-input id='to_add_at_array#{field_name}' onkeypress='enter_pressed_#{field_name}(event)' label='#{label}'></paper-input>
+															</div>
+															<div class='one'>
+																	<paper-icon-button icon='save' onclick='add_to_array_#{field_name}()' style='margin-top: 20px;'></paper-icon-button>
+															</div>
+													</div>
+													<div class='layout vertical' id='list_array_add_#{field_name}'>
+													</div>
+												</paper-dialog-scrollable>
+												<div class='buttons'>
+													<paper-button dialog-confirm>#{app_back}</paper-button>
+												</div>
+										</paper-dialog>"
+				if values == nil
+					values = []
+				end
+				value_on_input = ""
+				values.each do |value|
+					value_on_input += value+","
+				end
+				retorno+="<input type='hidden' value='#{value_on_input}' name='#{f.object_name}[#{field_name}]'  id='#{f.object_name}_#{field_name}'>"
+				retorno+="
+					<script>
+							var paper_array_list_#{field_name} = [
+							"
+				if values == nil
+					values = []
+				end
+				values.each do |value|
+					retorno += "\""+value+"\","
+				end
+				retorno+="
+						]
+						function openArraytDialog#{field_name}(){
+							$('#list_array_add_#{field_name}').html('');
+							for(var a=0; a < paper_array_list_#{field_name}.length;a++){
+								$('#list_array_add_#{field_name}').append(\"<paper-item style='width: 100%;' name='\"+paper_array_list_#{field_name}[a]+\"'><iron-icon icon='#{icon}'></iron-icon><div class='flex'>\"+paper_array_list_#{field_name}[a]+\"</div><paper-icon-button class='system_danger_color' onclick='setToDelete#{field_name}(\"+a+\")' title='#{app_delete}' icon='remove-circle-outline'></paper-icon-button></paper-item>\")
+							}
+							document.querySelector('#array_dialog_#{field_name}').toggle()
+						}
+						function add_to_array_#{field_name}(){
+							value = $('#to_add_at_array#{field_name}').val();
+							value = value.replace('\"','');
+							value = value.replace(\"'\",'');
+							value = value.replace(',','')
+							if(value != ''){
+								paper_array_list_#{field_name}.push(value)
+								$('#list_array_add_#{field_name}').html('');
+								for(var a=0; a < paper_array_list_#{field_name}.length;a++){
+									$('#list_array_add_#{field_name}').append(\"<paper-item style='width: 100%;' name='\"+paper_array_list_#{field_name}[a]+\"'><iron-icon icon='#{icon}'></iron-icon><div class='flex'>\"+paper_array_list_#{field_name}[a]+\"</div><paper-icon-button class='system_danger_color' onclick='setToDelete#{field_name}(\"+a+\")' title='#{app_delete}' icon='remove-circle-outline'></paper-icon-button></paper-item>\")
+								}
+								$('#array_list_added_#{field_name}').html('');
+								for(var a=0; a < paper_array_list_#{field_name}.length;a++){
+									$('#array_list_added_#{field_name}').append(\"<paper-item style='width: 100%;'><div class='flex'>\"+paper_array_list_#{field_name}[a]+\"</div><paper-icon-button class='system_danger_color' onclick='setToDelete#{field_name}(\"+a+\")' title='#{app_delete}' icon='remove-circle-outline'></paper-icon-button></paper-item>\");
+								}
+								$('##{f.object_name}_#{field_name}').val(paper_array_list_#{field_name});
+								$('#to_add_at_array#{field_name}').val('')
+							}
+						}
+						function enter_pressed_#{field_name}(e){
+							if (e.keyCode == 13) {
+								add_to_array_#{field_name}();
+							}
+						}
+						function setToDelete#{field_name}(position){
+							paper_array_list_#{field_name}.splice(position, 1);
+							$('#list_array_add_#{field_name}').html('');
+							for(var a=0; a < paper_array_list_#{field_name}.length;a++){
+								$('#list_array_add_#{field_name}').append(\"<paper-item style='width: 100%;' name='\"+paper_array_list_#{field_name}[a]+\"'><iron-icon icon='#{icon}'></iron-icon><div class='flex'>\"+paper_array_list_#{field_name}[a]+\"</div><paper-icon-button class='system_danger_color' onclick='setToDelete#{field_name}(\"+a+\")' title='#{app_delete}' icon='remove-circle-outline'></paper-icon-button></paper-item>\")
+							}
+							$('#array_list_added_#{field_name}').html('');
+							for(var a=0; a < paper_array_list_#{field_name}.length;a++){
+								$('#array_list_added_#{field_name}').append(\"<paper-item style='width: 100%;'><div class='flex'>\"+paper_array_list_#{field_name}[a]+\"</div><paper-icon-button class='system_danger_color' onclick='setToDelete#{field_name}(\"+a+\")' title='#{app_delete}' icon='remove-circle-outline'></paper-icon-button></paper-item>\");
+							}
+							$('##{f.object_name}_#{field_name}').val(paper_array_list_#{field_name});
+						}
+					</script>
+				"
+
+				retorno.html_safe
+	end
+end
+%>
