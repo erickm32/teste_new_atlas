@@ -1,10 +1,15 @@
 <div class="mdl-layout__drawer">
   <span class="mdl-layout-title">Title</span>
   <nav class="mdl-navigation">
-    <a class="mdl-navigation__link" href="">Isso aqui</a>
-    <%= link_to "Logar", new_user_session_path, class: "mdl-navigation__link" %>
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="">Link</a>
+    <a class="mdl-navigation__link" href="/">Isso aqui</a>
+    <% if not user_signed_in? %>
+      <%= link_to "Logar", new_user_session_path, class: "mdl-navigation__link" %>
+    <% else %>
+      <%= link_to "Deslogar", destroy_user_session_path, method: :delete, class: "mdl-navigation__link"%>
+    <% end %>
+    <%= link_to "Texts", obeduc_texts_path, class: "mdl-navigation__link" %>
+    <%= link_to "Colors", obeduc_colors_path, class: "mdl-navigation__link" %>
+    <a class="mdl-navigation__link" href="#">Link</a>
+    <a class="mdl-navigation__link" href="#">Link</a>
   </nav>
 </div>
