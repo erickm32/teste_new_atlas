@@ -37,7 +37,9 @@ gem 'jbuilder', '~> 2.5'
 
 # devise for authentication
 gem 'devise'
-# mdl components 
+# mongoid for mongodb
+gem 'mongoid'
+# mdl components
 gem 'material_design_lite-sass', '~> 1.3'
 
 
