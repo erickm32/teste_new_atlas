@@ -1,4 +1,5 @@
 class Obeduc::ColorsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_obeduc_color, only: [:show, :edit, :update, :destroy]
 
   # GET /obeduc/colors

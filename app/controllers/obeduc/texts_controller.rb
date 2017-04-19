@@ -1,4 +1,5 @@
 class Obeduc::TextsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_obeduc_text, only: [:show, :edit, :update, :destroy]
 
   # GET /obeduc/texts
