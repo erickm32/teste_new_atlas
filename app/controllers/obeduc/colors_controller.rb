@@ -6,11 +6,13 @@ class Obeduc::ColorsController < ApplicationController
   # GET /obeduc/colors.json
   def index
     @obeduc_colors = Obeduc::Color.all
+    authorize Obeduc::Color
   end
 
   # GET /obeduc/colors/1
   # GET /obeduc/colors/1.json
   def show
+    authorize @obeduc_color
   end
 
   # GET /obeduc/colors/new
@@ -26,7 +28,7 @@ class Obeduc::ColorsController < ApplicationController
   # POST /obeduc/colors.json
   def create
     @obeduc_color = Obeduc::Color.new(obeduc_color_params)
-
+    authorize @obeduc_color
     respond_to do |format|
       if @obeduc_color.save
         format.html { redirect_to @obeduc_color, notice: 'Color was successfully created.' }
@@ -55,6 +57,7 @@ class Obeduc::ColorsController < ApplicationController
   # DELETE /obeduc/colors/1
   # DELETE /obeduc/colors/1.json
   def destroy
+    authorize @obeduc_color
     @obeduc_color.destroy
     respond_to do |format|
       format.html { redirect_to obeduc_colors_url, notice: 'Color was successfully destroyed.' }

@@ -37,6 +37,10 @@ gem 'jbuilder', '~> 2.5'
 
 # devise for authentication
 gem 'devise'
+# pundit for authorization
+gem 'pundit'
+# rolify for Roles
+gem 'rolify'
 # mongoid for mongodb
 gem 'mongoid'
 # mdl components
