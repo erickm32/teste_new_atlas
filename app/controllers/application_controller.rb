@@ -7,7 +7,13 @@ class ApplicationController < ActionController::Base
   private
 
   def user_not_authorized
-    flash[:notice] = "You are not authorized to perform this action."
+    puts '#####OLAR#####'
+    puts request.request_method # DELETE
+    action = request.fullpath.partition(/\/{1}([a-z]+)\//)[2]
+    action = action.partition(/\//)[0]
+    action.chomp!('s')
+    flash[:notice] = "You are not authorized to #{request.request_method.downcase} this #{action}"
+
     redirect_to(request.referrer || root_path)
   end
 end
